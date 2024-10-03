@@ -31,7 +31,7 @@ jobs:
 
     # Terraform Plan
     - name: Terraform Plan
-      run: terraform plan -var-file="terraform-kubernetes/config/${{ matrix.environment }}/${{ matrix.environment }}.tfvars" -out=tfplan
+      run: terraform plan -var-file="terraform-kubernetes/${{ matrix.environment }}/${{ matrix.environment }}.tfvars" -out=tfplan
 
 
 

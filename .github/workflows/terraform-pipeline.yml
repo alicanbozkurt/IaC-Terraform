@@ -10,7 +10,7 @@ on:
 
 jobs:
   terraform:
-    name: Terraform Plan and Apply
+    name: Terraform Plan
     runs-on: ubuntu-latest
 
     strategy:
@@ -28,16 +28,10 @@ jobs:
       with:
         terraform_version: 1.5.0
 
-    # Initialize Terraform
-  #  - name: Terraform Init
-    #  run: terraform init -backend-config="key=${{ matrix.environment }}/terraform.tfstate"
 
     # Terraform Plan
     - name: Terraform Plan
-      run: terraform plan -var-file="terraform/config/${{ matrix.environment }}/terraform.tfvars" -out=tfplan
+      run: terraform plan -var-file="terraform-kubernetes/config/${{ matrix.environment }}/${{ matrix.environment }}.tfvars" -out=tfplan
 
-    # Apply changes only when pushing to main branch
-  #  - name: Terraform Apply
-   #   if: github.ref == 'refs/heads/main'
-    #  run: terraform apply -input=false tfplan
+
 

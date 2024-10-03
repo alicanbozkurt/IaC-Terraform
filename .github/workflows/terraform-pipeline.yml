@@ -3,35 +3,39 @@ name: Terraform Pipeline
 on:
   push:
     branches:
-      - '*'
+      - '*'  # Run on all branches
   pull_request:
     branches:
-      - '*'
+      - '*'  # Run on all pull requests
 
 jobs:
-  terraform:
-    name: Terraform Plan
+  terraform-plan:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        environment: [dev, staging, prod]
-
     steps:
-    # Checkout the repository
-    - name: Checkout Repository
+    - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Set up Terraform
+    - name: Extract Branch Name
+      id: extract_branch
+      run: |
+        BRANCH_NAME=${GITHUB_REF##*/}
+        echo "Branch name: $BRANCH_NAME"
+        echo "::set-output name=branch::$BRANCH_NAME"
+
     - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: 1.5.0
+        terraform_version: 1.1.0  # Specify the Terraform version to use
 
+    - name: Terraform Init
+      if: contains('dev,staging,prod', steps.extract_branch.outputs.branch)
+      run: |
+        cd environments/${{ steps.extract_branch.outputs.branch }}
+        terraform init
 
-    # Terraform Plan
     - name: Terraform Plan
-      run: terraform plan -var-file="terraform-kubernetes/${{ matrix.environment }}/${{ matrix.environment }}.tfvars" -out=tfplan
-
-
-
+      if: contains('dev,staging,prod', steps.extract_branch.outputs.branch)
+      run: |
+        cd environments/${{ steps.extract_branch.outputs.branch }}
+        terraform plan -var-file=${{ steps.extract_branch.outputs.branch }}.tfvars -out=tfplan

@@ -34,10 +34,10 @@ jobs:
 
     - name: Terraform Init
       run: |
-        cd IaC-Terraform/${{ steps.extract_branch.outputs.branch }}
+        cd ${{ github.workspace }}/${{ steps.extract_branch.outputs.branch }}
         terraform init
 
     - name: Terraform Plan
       run: |
-        cd IaC-Terraform/${{ steps.extract_branch.outputs.branch }}
+        cd ${{ github.workspace }}/${{ steps.extract_branch.outputs.branch }}
         terraform plan -var-file=${{ steps.extract_branch.outputs.branch }}.tfvars -out=tfplan

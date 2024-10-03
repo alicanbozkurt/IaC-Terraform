@@ -20,6 +20,10 @@ jobs:
       id: extract_branch
       run: |
         BRANCH_NAME=${GITHUB_REF##*/}
+        # Use "dev" as the default if no matching environment found
+        if [[ "$BRANCH_NAME" != "dev" && "$BRANCH_NAME" != "staging" && "$BRANCH_NAME" != "prod" ]]; then
+          BRANCH_NAME="dev"
+        fi
         echo "Branch name: $BRANCH_NAME"
         echo "::set-output name=branch::$BRANCH_NAME"
 
@@ -29,13 +33,11 @@ jobs:
         terraform_version: 1.1.0  # Specify the Terraform version to use
 
     - name: Terraform Init
-      if: contains('dev,staging,prod,main', steps.extract_branch.outputs.branch)
       run: |
         cd IaC-terraform/${{ steps.extract_branch.outputs.branch }}
         terraform init
 
     - name: Terraform Plan
-      if: contains('dev,staging,prod', steps.extract_branch.outputs.branch)
       run: |
         cd IaC-terraform/${{ steps.extract_branch.outputs.branch }}
         terraform plan -var-file=${{ steps.extract_branch.outputs.branch }}.tfvars -out=tfplan

@@ -31,11 +31,11 @@ jobs:
     - name: Terraform Init
       if: contains('dev,staging,prod,main', steps.extract_branch.outputs.branch)
       run: |
-        cd environments/${{ steps.extract_branch.outputs.branch }}
+        cd /${{ steps.extract_branch.outputs.branch }}
         terraform init
 
     - name: Terraform Plan
       if: contains('dev,staging,prod', steps.extract_branch.outputs.branch)
       run: |
-        cd environments/${{ steps.extract_branch.outputs.branch }}
+        cd /${{ steps.extract_branch.outputs.branch }}
         terraform plan -var-file=${{ steps.extract_branch.outputs.branch }}.tfvars -out=tfplan

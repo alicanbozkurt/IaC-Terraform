@@ -70,9 +70,7 @@ subenv_objects = {
   }
 }
 
-# Added variables for the RDS database module
-#db_username         = "admin"  
-#db_password         = "Password"  
+
 db_subnet_ids       = ["subnet-05ea8a0b8c5d68524", "subnet-05c7d60280efa8266"]  
 
 # Remove or comment out this line

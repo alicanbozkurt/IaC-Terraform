@@ -1,69 +1,47 @@
 env     = "prod" #staging_env - Instance sizes and numbers may not reflect the required values ​​for resource usage. 
-objects = {}
+objects = {} #sub?
 
-subenv_objects = {
-  "integration" = {
+subenv_objects = { #objects? 
+  "production" = {
     kcls = {
       "container-svc1" = {
-        size  = "large"
-        count = 1
-      }
-      "container-svc2" = {
-        size  = "large"
-        count = 1
-      }
-    }
-    rdb = {
-      "mysql" = {
-        size    = "large"
-        db_type = "mysql"
-        count   = 1
-      }
-    }
-    nsdb = {
-      "nosql" = {
-        size    = "large"
-        db_type = "nosql"
-        count   = 1
-      }
-    }
-    instance = {
-      "wks" = {
-        size  = "large"
-        count = 1
-      }
-    }
-  }
-  "performance" = {
-    kcls = {
-      "container-svc1" = {
-        size  = "large"
+        size  = "xlarge"
         #mem   = 2048
         count = 1
       }
       "container-svc2" = {
-        size  = "large"
+        size  = "xlarge"
         #mem   = 4096
         count = 1
       }
     }
     rdb = {
       "mysql" = {
-        size    = "large"
+        size    = "xlarge"
+        db_type = "mysql"
+        count   = 1
+      }
+      "replica" = {
+        size    = "xlarge"
         db_type = "mysql"
         count   = 1
       }
     }
     nsdb = {
       "nosql" = {
-        size    = "large"
+        size    = "xlarge"
+        db_type = "nosql"
+        count   = 1
+      }
+      "replica" = {
+        size    = "xlarge"
         db_type = "nosql"
         count   = 1
       }
     }
     instance = {
       "wks" = {
-        size  = "large"
+        size  = "xlarge"
         count = 1
       }
     }

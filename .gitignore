@@ -2,7 +2,6 @@
 **/.terraform/*
 **/terraform_aws/*
 **/terraform_test/*
-**/dev/*
 *.out
 
 

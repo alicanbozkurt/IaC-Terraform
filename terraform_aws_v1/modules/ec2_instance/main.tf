@@ -9,8 +9,8 @@ locals {
 resource "aws_instance" "instances" {
   for_each = local.ec2_instances
 
-  ami                    = "ami-0c94855ba95c71c99"  # Amazon Linux 2 AMI
-  instance_type          = each.value.size == "large" ? "t3.large" : "t3.medium"
+  ami                    = var.ami
+  instance_type          = var.instance_type
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [var.security_group_id]
 

@@ -18,7 +18,6 @@ variable "subenv_objects" {
 variable "db_username" {
   description = "The username for the RDS instance"
   type        = string
-  #default     = "admin"
 }
 
 variable "db_password" {
@@ -47,3 +46,19 @@ variable "ecs_security_group_ids" {
   description = "List of security group IDs for ECS services"
   type        = list(string)
 }
+
+variable "ec2_ami" {
+  description = "AMI ID for EC2 instances"
+  type        = string
+}
+
+variable "ec2_instance_type" {
+  description = "Instance type for EC2 instances"
+  type        = string
+}
+
+variable "secret_name" {
+  description = "Name of the secret in AWS Secrets Manager"
+  type        = string
+}
+

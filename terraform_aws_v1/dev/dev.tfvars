@@ -2,7 +2,7 @@ env     = "dev"
 objects = {}
 
 subenv_objects = {
-  "integration" = {
+  "natasha" = {
     kcls = {
       "container-svc1" = {
         size  = "large"
@@ -73,10 +73,12 @@ subenv_objects = {
 
 db_subnet_ids       = ["subnet-05ea8a0b8c5d68524", "subnet-05c7d60280efa8266"]  
 
-# Remove or comment out this line
 # ec2_subnet_id = "subnet-12345678"
 
-# Added variables for the ECS service module
 ecs_subnet_ids         = ["subnet-05ea8a0b8c5d68524", "subnet-05c7d60280efa8266"] 
 ecs_security_group_ids = ["sg-0343b9eedfeccac8b"]                      
 
+ec2_ami            = "ami-0c94855ba95c71c99"   
+ec2_instance_type  = "t3.large"             
+
+secret_name = "db_password123"

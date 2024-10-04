@@ -17,3 +17,8 @@ output "ecs_security_group_id" {
   description = "Security Group ID for ECS services"
   value       = aws_security_group.ecs.id
 }
+
+output "rds_security_group_id" {
+  description = "Security Group ID for RDS instances"
+  value       = aws_security_group.rds.id
+}

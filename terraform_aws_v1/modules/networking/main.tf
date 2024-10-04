@@ -107,3 +107,28 @@ resource "aws_security_group" "ecs" {
     Name = "${var.env}-ecs-sg"
   }
 }
+
+# Create Security Group for RDS instances
+resource "aws_security_group" "rds" {
+  name        = "${var.env}-rds-sg"
+  description = "Security group for RDS instances"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 3306  # Default MySQL port; adjust if using a different DB engine
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Adjust to restrict access as necessary
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.env}-rds-sg"
+  }
+}

@@ -33,9 +33,9 @@ module "rds_database" {
   combined_objects  = module.terraform_data.combined_objects
   env               = var.env
   db_username       = var.db_username
-  db_password_secret_arn = aws_secretsmanager_secret.db_password.id  # Reference the secret ARN
+  db_password       = aws_secretsmanager_secret_version.db_password.secret_string  # Use the resource attribute directly
   subnet_ids        = module.networking.public_subnet_ids
-  #security_group_id = module.networking.rds_security_group_id
+  security_group_id = module.networking.rds_security_group_id
 }
 
 
@@ -45,7 +45,10 @@ module "ec2_instance" {
   env               = var.env
   subnet_id         = module.networking.public_subnet_ids[0]
   security_group_id = module.networking.ec2_security_group_id
+  ami               = var.ec2_ami
+  instance_type     = var.ec2_instance_type
 }
+
 
 module "dynamodb_table" {
   source           = "../modules/dynamodb_table"
@@ -54,7 +57,7 @@ module "dynamodb_table" {
 }
 
 resource "aws_secretsmanager_secret" "db_password" {
-  name = "/${var.env}/db_password"
+  name = "/${var.env}/${var.secret_name}"
 
   tags = {
     Environment = var.env
@@ -63,5 +66,9 @@ resource "aws_secretsmanager_secret" "db_password" {
 
 resource "aws_secretsmanager_secret_version" "db_password" {
   secret_id     = aws_secretsmanager_secret.db_password.id
-  secret_string = var.db_password  
+  secret_string = var.db_password
 }
+
+# data "aws_secretsmanager_secret_version" "db_password" {
+#   secret_id  = aws_secretsmanager_secret.db_password.id
+# }

@@ -1,10 +1,9 @@
 # Local .terraform directories and others
 **/.terraform/*
 **/terraform_aws/*
-**/modules/*
 **/terraform_test/*
 **/dev/*
-
+*.out
 
 
 # .tfstate files

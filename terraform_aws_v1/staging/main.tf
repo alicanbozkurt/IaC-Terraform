@@ -4,7 +4,6 @@ provider "aws" {
 }
 
 
-# Call the Networking Module
 module "networking" {
   source                     = "../modules/networking"
   env                        = var.env

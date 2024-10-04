@@ -14,7 +14,7 @@
 crash.log
 
 # .tfvars files containing sensitive data
-*.tfvars
+# *.tfvars
 *.tfvars.json
 
 # Override files (usually local settings)

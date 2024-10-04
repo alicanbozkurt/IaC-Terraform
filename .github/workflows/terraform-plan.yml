@@ -30,15 +30,15 @@ jobs:
         run: |
           if [[ "${GITHUB_REF##*/}" == "develop" ]]; then
             echo "TF_VAR_ENV=dev" >> $GITHUB_ENV
-            echo "WORKING_DIRECTORY=./dev" >> $GITHUB_ENV
+            echo "WORKING_DIRECTORY=./terraform_aws_v1/dev" >> $GITHUB_ENV
             echo "TFVARS_FILE=dev.tfvars" >> $GITHUB_ENV
           elif [[ "${GITHUB_REF##*/}" == "staging" ]]; then
             echo "TF_VAR_ENV=staging" >> $GITHUB_ENV
-            echo "WORKING_DIRECTORY=./staging" >> $GITHUB_ENV
+            echo "WORKING_DIRECTORY=./terraform_aws_v1/staging" >> $GITHUB_ENV
             echo "TFVARS_FILE=staging.tfvars" >> $GITHUB_ENV
           elif [[ "${GITHUB_REF##*/}" == "main" ]]; then
             echo "TF_VAR_ENV=prod" >> $GITHUB_ENV
-            echo "WORKING_DIRECTORY=./prod" >> $GITHUB_ENV
+            echo "WORKING_DIRECTORY=./terraform_aws_v1/prod" >> $GITHUB_ENV
             echo "TFVARS_FILE=prod.tfvars" >> $GITHUB_ENV
           fi
 

@@ -14,7 +14,6 @@ output "ec2_instance_ids" {
   value = module.ec2_instance.instance_ids
 }
 
-# Outputs
 output "vpc_id" {
   value = module.networking.vpc_id
 }
